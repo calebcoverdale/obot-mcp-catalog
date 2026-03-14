@@ -1,0 +1,38 @@
+name: EverArt
+shortDescription: Generate AI images using various models through the EverArt platform
+description: |
+  A Model Context Protocol (MCP) server for EverArt AI image generation. Enables AI agents to generate images using various AI models available on the EverArt platform.
+
+  ## Features
+  - **Image Generation**: Generate images from text prompts
+  - **Multiple Models**: Access to various AI image generation models
+  - **Style Control**: Configure generation parameters for different styles
+
+  ## What you'll need to connect
+
+  **Required:**
+  - **EVERART_API_KEY**: EverArt API key for authentication
+metadata:
+  categories: AI, Creative
+icon: https://img.icons8.com/?size=100&id=50284&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env:
+  - key: EVERART_API_KEY
+    name: EverArt API Key
+    required: true
+    sensitive: true
+    description: EverArt API key for image generation
+toolPreview:
+  - name: generate_image
+    description: Generate an image using EverArt AI
+    params:
+      prompt: Text description of the image to generate
+      model: Model ID to use for generation (optional)
+      image_count: Number of images to generate (optional)
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-everart

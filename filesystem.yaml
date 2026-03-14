@@ -1,0 +1,56 @@
+name: Filesystem
+shortDescription: Read, write, and manage files and directories on the local filesystem
+description: |
+  A Model Context Protocol (MCP) server that provides filesystem operations. Allows AI agents to read, write, and manage files and directories within allowed paths.
+
+  ## Features
+  - **File Operations**: Read, write, create, and edit files
+  - **Directory Management**: List, create, and search directories
+  - **Path Safety**: Operations restricted to allowed directories
+  - **Search**: Find files by name pattern and search content with regex
+
+  ## What you'll need to connect
+
+  **Required:**
+  - **ALLOWED_DIRECTORIES**: Comma-separated list of directories the server can access
+metadata:
+  categories: Developer Tools, Utilities
+icon: https://img.icons8.com/?size=100&id=dINnkNb1FBl4&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env:
+  - key: ALLOWED_DIRECTORIES
+    name: Allowed Directories
+    required: true
+    sensitive: false
+    description: Comma-separated list of directories the server can access
+toolPreview:
+  - name: read_file
+    description: Read the complete contents of a file
+    params:
+      path: Path to the file to read
+  - name: write_file
+    description: Create or overwrite a file with new content
+    params:
+      path: Path to the file to write
+      content: Content to write to the file
+  - name: list_directory
+    description: List files and directories at a given path
+    params:
+      path: Path to the directory to list
+  - name: search_files
+    description: Recursively search for files matching a pattern
+    params:
+      path: Starting directory for search
+      pattern: Search pattern (glob format)
+  - name: move_file
+    description: Move or rename a file or directory
+    params:
+      source: Source path
+      destination: Destination path
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-filesystem

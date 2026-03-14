@@ -1,0 +1,47 @@
+name: Git
+shortDescription: Read, search, and analyze Git repositories with commit history and diffs
+description: |
+  A Model Context Protocol (MCP) server that provides Git repository operations. Enables AI agents to read, search, and analyze Git repositories including commit history, diffs, and branch management.
+
+  ## Features
+  - **Repository Operations**: Clone, init, and manage repositories
+  - **Commit History**: View logs, diffs, and file changes
+  - **Branch Management**: Create, list, and checkout branches
+  - **Search**: Search through repository content and history
+  - **Status**: Check working tree status and staged changes
+
+  ## What you'll need to connect
+
+  **No Setup Required**: Works with any Git repository accessible to the server.
+metadata:
+  categories: Developer Tools
+icon: https://img.icons8.com/?size=100&id=20906&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env: []
+toolPreview:
+  - name: git_log
+    description: Shows the commit log for a repository
+    params:
+      repo_path: Path to the Git repository
+      max_count: Maximum number of commits to show (optional)
+  - name: git_diff
+    description: Shows changes between commits, commit and working tree, etc.
+    params:
+      repo_path: Path to the Git repository
+      target: Target to diff against (optional)
+  - name: git_status
+    description: Shows the working tree status
+    params:
+      repo_path: Path to the Git repository
+  - name: git_show
+    description: Shows the contents of a commit
+    params:
+      repo_path: Path to the Git repository
+      revision: Commit hash or reference to show
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-git

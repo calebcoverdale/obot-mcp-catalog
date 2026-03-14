@@ -1,0 +1,45 @@
+name: Sequential Thinking
+shortDescription: Dynamic problem-solving through structured, revisable thought sequences
+description: |
+  A Model Context Protocol (MCP) server that provides a sequential thinking tool for dynamic, reflective problem-solving. Enables AI agents to work through complex problems step-by-step with the ability to revise and branch their reasoning.
+
+  ## Features
+  - **Step-by-step Reasoning**: Break complex problems into manageable thought steps
+  - **Revision Support**: Revise previous thoughts when new information emerges
+  - **Branching**: Branch into alternative reasoning paths
+  - **Dynamic Length**: Adjust the total number of thoughts as understanding deepens
+  - **Hypothesis Generation**: Generate and verify hypotheses through structured thinking
+
+  ## What you'll need to connect
+
+  **No Setup Required**: Works out-of-the-box with no configuration needed.
+
+  ## Use Cases
+  - Analyzing complex problems requiring multiple reasoning steps
+  - Planning tasks with dependencies and decision points
+  - Debugging by systematically working through potential causes
+  - Research synthesis requiring evaluation of multiple sources
+metadata:
+  categories: AI, Reasoning
+icon: https://img.icons8.com/?size=100&id=11138&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env: []
+toolPreview:
+  - name: sequentialthinking
+    description: A detailed tool for dynamic and reflective problem-solving through sequential thoughts
+    params:
+      thought: The current thinking step content
+      nextThoughtNeeded: Whether another thought step is needed
+      thoughtNumber: Current thought number in the sequence
+      totalThoughts: Estimated total thoughts needed (can be revised)
+      isRevision: Whether this revises a previous thought (optional)
+      revisesThought: Which thought number is being reconsidered (optional)
+      branchFromThought: Which thought to branch from (optional)
+      branchId: Identifier for the new branch (optional)
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-sequential-thinking

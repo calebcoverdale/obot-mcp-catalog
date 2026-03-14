@@ -1,0 +1,55 @@
+name: Google Maps
+shortDescription: Search places, get directions, geocode addresses, and explore locations
+description: |
+  A Model Context Protocol (MCP) server for Google Maps. Enables AI agents to search for places, get directions, geocode addresses, and retrieve location details using the Google Maps API.
+
+  ## Features
+  - **Place Search**: Search for businesses, landmarks, and addresses
+  - **Directions**: Get driving, walking, cycling, and transit directions
+  - **Geocoding**: Convert addresses to coordinates and vice versa
+  - **Place Details**: Get detailed information about specific places
+  - **Distance Matrix**: Calculate travel times and distances between points
+
+  ## What you'll need to connect
+
+  **Required:**
+  - **GOOGLE_MAPS_API_KEY**: Google Maps Platform API key with Places and Directions APIs enabled
+metadata:
+  categories: Maps, Utilities
+icon: https://img.icons8.com/?size=100&id=OU5KDdxKbGFp&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env:
+  - key: GOOGLE_MAPS_API_KEY
+    name: Google Maps API Key
+    required: true
+    sensitive: true
+    description: Google Maps Platform API key
+toolPreview:
+  - name: maps_search_places
+    description: Search for places using Google Maps
+    params:
+      query: Search query for places
+      location: Center point for search as lat,lng (optional)
+      radius: Search radius in meters (optional)
+  - name: maps_directions
+    description: Get directions between two locations
+    params:
+      origin: Starting point address or coordinates
+      destination: Ending point address or coordinates
+      mode: Travel mode - driving, walking, bicycling, transit (optional)
+  - name: maps_geocode
+    description: Convert an address to geographic coordinates
+    params:
+      address: Address to geocode
+  - name: maps_reverse_geocode
+    description: Convert coordinates to an address
+    params:
+      latitude: Latitude coordinate
+      longitude: Longitude coordinate
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-google-maps

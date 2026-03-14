@@ -1,0 +1,36 @@
+name: Time
+shortDescription: Get current time and convert between timezones
+description: |
+  A Model Context Protocol (MCP) server that provides time and timezone operations. Enables AI agents to get the current time in any timezone and convert times between timezones.
+
+  ## Features
+  - **Current Time**: Get the current time in any IANA timezone
+  - **Timezone Conversion**: Convert times between different timezones
+  - **IANA Timezone Support**: Full support for IANA timezone identifiers
+
+  ## What you'll need to connect
+
+  **No Setup Required**: Works out-of-the-box with no configuration needed.
+metadata:
+  categories: Utilities
+icon: https://img.icons8.com/?size=100&id=7880&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env: []
+toolPreview:
+  - name: get_current_time
+    description: Get the current time in a specific timezone
+    params:
+      timezone: IANA timezone identifier (e.g., America/New_York, Europe/London)
+  - name: convert_time
+    description: Convert a time from one timezone to another
+    params:
+      source_timezone: Source IANA timezone
+      time: Time string in 24-hour format (HH:MM)
+      target_timezone: Target IANA timezone
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-time

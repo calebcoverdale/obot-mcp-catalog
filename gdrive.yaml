@@ -1,0 +1,46 @@
+name: Google Drive
+shortDescription: Search and read files from Google Drive with OAuth authentication
+description: |
+  A Model Context Protocol (MCP) server for Google Drive. Enables AI agents to search and read files from Google Drive, including Google Docs, Sheets, and uploaded files.
+
+  ## Features
+  - **File Search**: Search across your Google Drive files
+  - **Content Reading**: Read file contents including Google Docs and Sheets
+  - **Format Conversion**: Automatic export of Google Workspace files to readable formats
+
+  ## What you'll need to connect
+
+  **Required:**
+  - **GOOGLE_CLIENT_ID**: Google OAuth 2.0 client ID
+  - **GOOGLE_CLIENT_SECRET**: Google OAuth 2.0 client secret
+metadata:
+  categories: Productivity, Cloud Storage
+icon: https://img.icons8.com/?size=100&id=16094&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env:
+  - key: GOOGLE_CLIENT_ID
+    name: Google Client ID
+    required: true
+    sensitive: false
+    description: Google OAuth 2.0 client ID
+  - key: GOOGLE_CLIENT_SECRET
+    name: Google Client Secret
+    required: true
+    sensitive: true
+    description: Google OAuth 2.0 client secret
+toolPreview:
+  - name: search_drive
+    description: Search for files in Google Drive
+    params:
+      query: Search query string
+  - name: read_file
+    description: Read the contents of a file from Google Drive
+    params:
+      file_id: Google Drive file ID
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-gdrive

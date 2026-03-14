@@ -1,0 +1,41 @@
+name: Everything
+shortDescription: MCP test server that exercises all protocol features for development and testing
+description: |
+  A Model Context Protocol (MCP) test server that implements every MCP feature. Useful for testing MCP clients, debugging integrations, and verifying protocol compliance.
+
+  ## Features
+  - **All MCP Features**: Tools, resources, prompts, sampling, and logging
+  - **Echo Tools**: Tools that echo back inputs for testing
+  - **Sample Resources**: Various resource types for testing resource handling
+  - **Test Prompts**: Pre-built prompts for testing prompt functionality
+
+  ## What you'll need to connect
+
+  **No Setup Required**: This is a test/development server with no external dependencies.
+metadata:
+  categories: Developer Tools, Testing
+icon: https://img.icons8.com/?size=100&id=33822&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env: []
+toolPreview:
+  - name: echo
+    description: Echoes back the input message
+    params:
+      message: Message to echo back
+  - name: add
+    description: Adds two numbers together
+    params:
+      a: First number
+      b: Second number
+  - name: longRunningOperation
+    description: Demonstrates a long-running operation with progress
+    params:
+      duration: Duration in seconds
+      steps: Number of progress steps
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-everything

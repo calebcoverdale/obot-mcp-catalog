@@ -1,0 +1,52 @@
+name: SQLite
+shortDescription: Query and manage SQLite databases with schema inspection and analytics
+description: |
+  A Model Context Protocol (MCP) server that provides SQLite database operations. Enables AI agents to query, analyze, and manage SQLite databases with built-in safety features.
+
+  ## Features
+  - **SQL Queries**: Execute read and write SQL queries
+  - **Schema Inspection**: List tables, describe schemas, and explore database structure
+  - **Business Insights**: Generate memos and insights from query results
+  - **Safe Operations**: Read-only mode available, parameterized queries
+
+  ## What you'll need to connect
+
+  **Required:**
+  - **DB_PATH**: Path to the SQLite database file
+metadata:
+  categories: Database, Developer Tools
+icon: https://img.icons8.com/?size=100&id=yjSayFwWHyCo&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env:
+  - key: DB_PATH
+    name: Database Path
+    required: true
+    sensitive: false
+    description: Path to the SQLite database file
+toolPreview:
+  - name: read_query
+    description: Execute a SELECT query on the SQLite database
+    params:
+      query: SQL SELECT query to execute
+  - name: write_query
+    description: Execute an INSERT, UPDATE, or DELETE query
+    params:
+      query: SQL write query to execute
+  - name: list_tables
+    description: List all tables in the database
+    params: {}
+  - name: describe_table
+    description: Get the schema of a specific table
+    params:
+      table_name: Name of the table to describe
+  - name: create_table
+    description: Create a new table in the database
+    params:
+      query: CREATE TABLE SQL statement
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-sqlite

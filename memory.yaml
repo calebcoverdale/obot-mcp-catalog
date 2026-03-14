@@ -1,0 +1,48 @@
+name: Memory
+shortDescription: Persistent knowledge graph memory for AI agents with entity and relation management
+description: |
+  A Model Context Protocol (MCP) server that provides a persistent memory system using a local knowledge graph. Enables AI agents to store, retrieve, and manage structured information across conversations.
+
+  ## Features
+  - **Entity Management**: Create, read, update, and delete entities
+  - **Relations**: Define relationships between entities
+  - **Observations**: Add factual observations to entities
+  - **Search**: Search across the knowledge graph
+  - **Persistence**: Data persists across sessions in a JSON file
+
+  ## What you'll need to connect
+
+  **No Setup Required**: Memory data is stored in a local JSON file automatically.
+metadata:
+  categories: AI, Utilities
+icon: https://img.icons8.com/?size=100&id=11916&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env: []
+toolPreview:
+  - name: create_entities
+    description: Create multiple new entities in the knowledge graph
+    params:
+      entities: Array of entities with name, entityType, and observations
+  - name: create_relations
+    description: Create relations between entities
+    params:
+      relations: Array of relations with from, to, and relationType
+  - name: search_nodes
+    description: Search for nodes in the knowledge graph
+    params:
+      query: Search query string
+  - name: open_nodes
+    description: Retrieve specific nodes by name
+    params:
+      names: Array of entity names to retrieve
+  - name: add_observations
+    description: Add observations to existing entities
+    params:
+      observations: Array of observations with entityName and contents
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-memory

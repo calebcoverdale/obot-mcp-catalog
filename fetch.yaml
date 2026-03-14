@@ -1,0 +1,42 @@
+name: Fetch
+shortDescription: Retrieve and convert web content to markdown for LLM consumption
+description: |
+  A Model Context Protocol (MCP) server that provides web content fetching capabilities. Retrieves URLs and converts HTML to markdown for easy consumption by LLMs.
+
+  ## Features
+  - **URL Fetching**: Retrieve content from any URL
+  - **HTML to Markdown**: Automatic conversion for LLM-friendly output
+  - **Content Extraction**: Smart extraction of main content from web pages
+  - **Robots.txt Support**: Respects robots.txt by default with configurable user agent
+
+  ## What you'll need to connect
+
+  **No Setup Required**: Works out-of-the-box with no API keys needed.
+
+  **Optional Configuration:**
+  - **USER_AGENT**: Custom user agent string for requests
+metadata:
+  categories: Web, Utilities
+icon: https://img.icons8.com/?size=100&id=53372&format=png&color=000000
+repoURL: https://github.com/modelcontextprotocol/servers
+env:
+  - key: USER_AGENT
+    name: User Agent
+    required: false
+    sensitive: false
+    description: Custom user agent string for HTTP requests
+toolPreview:
+  - name: fetch
+    description: Fetches a URL from the internet and extracts its contents as markdown
+    params:
+      url: URL to fetch
+      max_length: Maximum number of characters to return (optional)
+      start_index: Start content from this character index (optional)
+      raw: Get raw content without markdown conversion (optional)
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-fetch

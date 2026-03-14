@@ -1,0 +1,56 @@
+name: Sentry
+shortDescription: Query and analyze Sentry issues, errors, and performance data
+description: |
+  A Model Context Protocol (MCP) server for Sentry error tracking. Enables AI agents to query issues, analyze error patterns, and investigate performance problems in your Sentry projects.
+
+  ## Features
+  - **Issue Search**: Find and filter Sentry issues by project, status, and query
+  - **Event Analysis**: Retrieve detailed event data including stack traces
+  - **Error Patterns**: Analyze error frequency and patterns
+  - **Project Management**: List and manage Sentry projects and organizations
+
+  ## What you'll need to connect
+
+  **Required:**
+  - **SENTRY_AUTH_TOKEN**: Sentry authentication token with project:read and event:read scopes
+  - **SENTRY_ORG**: Sentry organization slug
+metadata:
+  categories: Monitoring, Developer Tools
+icon: https://avatars.githubusercontent.com/u/1396951?s=200&v=4
+repoURL: https://github.com/modelcontextprotocol/servers
+env:
+  - key: SENTRY_AUTH_TOKEN
+    name: Auth Token
+    required: true
+    sensitive: true
+    description: Sentry authentication token with project:read and event:read scopes
+  - key: SENTRY_ORG
+    name: Organization
+    required: true
+    sensitive: false
+    description: Sentry organization slug
+toolPreview:
+  - name: list_projects
+    description: List all Sentry projects for the organization
+    params: {}
+  - name: search_issues
+    description: Search Sentry issues with query filters
+    params:
+      query: Sentry search query string
+      project_slug: Project slug to search within (optional)
+  - name: get_issue_details
+    description: Get detailed information about a specific issue
+    params:
+      issue_id: Sentry issue ID
+  - name: get_event_details
+    description: Get details of a specific event
+    params:
+      issue_id: Issue ID the event belongs to
+      event_id: Specific event ID
+runtime: containerized
+containerizedConfig:
+  image: ghcr.io/obot-platform/mcp-images/phat:main
+  port: 8099
+  path: /
+  args:
+    - mcp-server-sentry
